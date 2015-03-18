@@ -41,3 +41,28 @@ header h1 {
 .content {
   padding: 1em;
 }
+
+button, input, select, textarea {
+  font-size: 15px;
+  font-family: inherit;
+}
+
+button, input, textarea {
+  padding: 5px;
+}
+
+.field {
+  display: block;
+}
+
+.field--large {
+  width: 30em;
+}
+
+button {
+  padding: 1em 2em;
+}
+
+p {
+  margin: 1.5em 0;
+}

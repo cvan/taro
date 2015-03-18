@@ -10,6 +10,69 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 
+
+function getJSON(url, cb) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('get', url);
+  xhr.onreadystatechange = handler;
+  xhr.responseType = 'json';
+  xhr.setRequestHeader('Accept', 'application/json');
+  xhr.send();
+
+  function handler() {
+    if (this.readyState === this.DONE) {
+      if (this.status === 200) {
+        cb(null, this.response);
+      } else {
+        cb(new Error('[getJSON] `' + url + '` failed with status "' + this.status + '"'));
+      }
+    }
+  };
+}
+
+
+function storageGet(key, value) {
+  if (!('localStorage' in window)) {
+    return console.warn('Could not access localStorage');
+  }
+
+  var data = localStorage[key];
+  if (typeof data === 'undefined') {
+    data = null;
+  }
+
+  try {
+    data = JSON.parse(data);
+  } catch (e) {
+    console.warn('Could not parse JSON from localStorage[%s]', key);
+  }
+
+  return data;
+}
+
+
+function storageSet(key, value) {
+  if (!('localStorage' in window)) {
+    return console.warn('Could not access localStorage');
+  }
+
+  try {
+    value = JSON.stringify(value);
+  } catch (e) {
+    console.warn('Could not stringify as JSON to localStorage[%s]', key);
+  }
+
+  localStorage[key] = value;
+}
+
+
+function storagePush(key, value) {
+  var data = storageGet(key, value) || [];
+  data.push(value);
+  storageSet(key, data);
+}
+
+
 var App = React.createClass({
   render: function () {
     return (
@@ -29,6 +92,7 @@ var App = React.createClass({
   }
 });
 
+
 var Home = React.createClass({
   render: function () {
     return (
@@ -38,6 +102,7 @@ var Home = React.createClass({
     );
   }
 });
+
 
 var Apps = React.createClass({
   render: function () {
@@ -49,15 +114,52 @@ var Apps = React.createClass({
   }
 });
 
+
 var Add = React.createClass({
+  onSubmit: function (e) {
+    e.preventDefault();
+
+    var url = this.refs.url.getDOMNode().value;
+
+    getJSON('https://fetch-manifest.herokuapp.com/manifest?url=' + url, function (err, data) {
+      if (err) {
+        data = null;
+        console.warn(err.message);
+      }
+
+      if (data.error) {
+        data = null;
+        console.warn('Manifest error (for %s): %s', url, data.error);
+      }
+
+      // TODO: Make sure there are no dupes.
+      storagePush('apps', {
+        source_url: url,
+        manifest: data
+      });
+    });
+  },
   render: function () {
     return (
-      <DocumentTitle title="Add an App | Taro">
+      <div>
+        <DocumentTitle title="Add an App | Taro" />
         <h2>Add an App</h2>
-      </DocumentTitle>
+        <form onSubmit={this.onSubmit}>
+          <p>
+            <label>
+              URL
+              <input type="url" placeholder="http://" required ref="url" className="field field--large" />
+            </label>
+          </p>
+          <p>
+            <button type="submit">Submit</button>
+          </p>
+        </form>
+      </div>
     );
   }
 });
+
 
 var Favorites = React.createClass({
   render: function () {
@@ -68,6 +170,7 @@ var Favorites = React.createClass({
     );
   }
 });
+
 
 var NotFound = React.createClass({
   render: function () {
