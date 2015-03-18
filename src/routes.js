@@ -10,67 +10,7 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 
-
-function getJSON(url, cb) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('get', url);
-  xhr.onreadystatechange = handler;
-  xhr.responseType = 'json';
-  xhr.setRequestHeader('Accept', 'application/json');
-  xhr.send();
-
-  function handler() {
-    if (this.readyState === this.DONE) {
-      if (this.status === 200) {
-        cb(null, this.response);
-      } else {
-        cb(new Error('[getJSON] `' + url + '` failed with status "' + this.status + '"'));
-      }
-    }
-  };
-}
-
-
-function storageGet(key, value) {
-  if (!('localStorage' in window)) {
-    return console.warn('Could not access localStorage');
-  }
-
-  var data = localStorage[key];
-  if (typeof data === 'undefined') {
-    data = null;
-  }
-
-  try {
-    data = JSON.parse(data);
-  } catch (e) {
-    console.warn('Could not parse JSON from localStorage[%s]', key);
-  }
-
-  return data;
-}
-
-
-function storageSet(key, value) {
-  if (!('localStorage' in window)) {
-    return console.warn('Could not access localStorage');
-  }
-
-  try {
-    value = JSON.stringify(value);
-  } catch (e) {
-    console.warn('Could not stringify as JSON to localStorage[%s]', key);
-  }
-
-  localStorage[key] = value;
-}
-
-
-function storagePush(key, value) {
-  var data = storageGet(key, value) || [];
-  data.push(value);
-  storageSet(key, data);
-}
+var utils = require('./utils');
 
 
 var App = React.createClass({
@@ -121,7 +61,7 @@ var Add = React.createClass({
 
     var url = this.refs.url.getDOMNode().value;
 
-    getJSON('https://fetch-manifest.herokuapp.com/manifest?url=' + url, function (err, data) {
+    utils.getJSON('https://fetch-manifest.herokuapp.com/manifest?url=' + url, function (err, data) {
       if (err) {
         data = null;
         console.warn(err.message);
@@ -133,7 +73,7 @@ var Add = React.createClass({
       }
 
       // TODO: Make sure there are no dupes.
-      storagePush('apps', {
+      utils.storagePush('apps', {
         source_url: url,
         manifest: data
       });
