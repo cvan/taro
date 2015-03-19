@@ -8,23 +8,29 @@ var utils = require('../utils');
 var AppTile = React.createClass({
   render: function () {
     var tag = this.props.tag || 'div';
+    var manifest = this.props.data.manifest;
 
-    if (!this.props.data.manifest) {
+    if (!manifest) {
       return React.createElement(tag, {className: 'app-tile'}, '');
     }
 
-    var linkStyle = {
-      backgroundColor: this.props.data.manifest['theme-color'] || '#ccc'
-    };
-    var name = this.props.data.manifest.name;
+    var linkStyle = {};
+    if (manifest['theme-color']) {
+      linkStyle = {
+        backgroundColor: manifest['theme-color']
+      };
+    }
 
     var innerHTML = (
-      <a className="app-title__link" href={this.props.data.manifest.start_url}
-         target="_blank" style={linkStyle}>
-        <h3 className="app-title__name">{name}</h3>
-        <img className="app-title__icon"
-             src={this.props.data.manifest.icons[this.props.data.manifest.icons.length - 1].src}
-             alt={name} title={name} />
+      <a className="app-tile__link" href={manifest.start_url}
+         target="_blank" title={manifest.name}
+         style={linkStyle} data-theme-color={manifest['theme-color']}>
+
+        <div className="app-tile__name">{manifest.name}</div>
+        <img className="app-tile__icon"
+             src={manifest.icons[manifest.icons.length - 1].src}
+             alt={manifest.name} title={manifest.name} />
+        <div className="app-tile__description">{manifest.description}</div>
       </a>
     );
 
