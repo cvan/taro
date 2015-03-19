@@ -20,11 +20,15 @@ Generate a local settings file:
 
 ## Development
 
-From one terminal session, run the file watchers:
+To run the file watchers, run this from one terminal session:
 
-    npm run watch
+    npm run watch:js
 
-Serve the site from the simple server:
+And run this from another terminal session:
+
+    npm run watch:css
+
+And from yet another terminal session, serve the site from the simple server:
 
     npm run dev
 

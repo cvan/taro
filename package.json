@@ -8,11 +8,13 @@
     "start": "npm run build && NODE_ENVIRONMENT='production' node index",
     "dev": "npm run build && NODE_ENVIRONMENT='development' nodemon index",
     "prod": "npm start",
-    "build": "npm run build:jsx && npm run build:js && npm run build:css",
+    "build": "npm run build:js && npm run build:css",
+    "build:js": "npm run build:jsx && npm run build:bundle",
     "build:jsx": "jsx src/ lib/",
-    "build:js": "mkdir -p static && browserify lib/main.js -o static/main.js",
+    "build:bundle": "mkdir -p static && browserify lib/main.js -o static/main.js",
     "build:css": "autoprefixer src/main.css -o static/main.css",
-    "watch": "npm run build && onchange src/* src/**/* -- npm run build"
+    "watch:js": "npm run build:js && onchange src/*.js src/**/*.js -- npm run build:js",
+    "watch:css": "npm run build:css && onchange src/*.css src/**/*.css -- npm run build:css"
   },
   "author": "cvan",
   "license": "MIT",
