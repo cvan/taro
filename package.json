@@ -12,7 +12,7 @@
     "build:jsx": "jsx src/ lib/",
     "build:js": "browserify lib/main.js -o static/main.js",
     "build:css": "autoprefixer src/main.css -o static/main.css",
-    "watch": "npm run build && onchange src/* -- npm run build"
+    "watch": "npm run build && onchange src/* src/**/* -- npm run build"
   },
   "author": "cvan",
   "license": "MIT",
