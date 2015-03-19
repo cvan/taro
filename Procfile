@@ -1,1 +1,1 @@
-web: NODE_ENVIRONMENT=production node index
+web: npm start
