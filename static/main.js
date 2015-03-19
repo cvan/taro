@@ -193,7 +193,8 @@ var React = require('react');
 var apps = React.createClass({displayName: "apps",
   render: function () {
     return (
-      React.createElement(DocumentTitle, {title: "Apps | Taro"}, 
+      React.createElement("div", null, 
+        React.createElement(DocumentTitle, {title: "Apps | Taro"}), 
         React.createElement("h2", null, "Apps")
       )
     );
@@ -211,7 +212,8 @@ var React = require('react');
 var favorites = React.createClass({displayName: "favorites",
   render: function () {
     return (
-      React.createElement(DocumentTitle, {title: "My Favorites | Taro"}, 
+      React.createElement("div", null, 
+        React.createElement(DocumentTitle, {title: "My Favorites | Taro"}), 
         React.createElement("h2", null, "My Favorites")
       )
     );
@@ -229,7 +231,8 @@ var React = require('react');
 var home = React.createClass({displayName: "home",
   render: function () {
     return (
-      React.createElement(DocumentTitle, {title: "Home | Taro"}, 
+      React.createElement("div", null, 
+        React.createElement(DocumentTitle, {title: "Home | Taro"}), 
         React.createElement("h2", null, "Welcome home")
       )
     );
@@ -247,7 +250,8 @@ var React = require('react');
 var notFound = React.createClass({displayName: "notFound",
   render: function () {
     return (
-      React.createElement(DocumentTitle, {title: "Not Found | Taro"}, 
+      React.createElement("div", null, 
+        React.createElement(DocumentTitle, {title: "Not Found | Taro"}), 
         React.createElement("h2", null, "Oops!"), 
         React.createElement("p", null, "Page could not be found")
       )

@@ -5,9 +5,10 @@ var React = require('react');
 var apps = React.createClass({
   render: function () {
     return (
-      <DocumentTitle title="Apps | Taro">
+      <div>
+        <DocumentTitle title="Apps | Taro" />
         <h2>Apps</h2>
-      </DocumentTitle>
+      </div>
     );
   }
 });

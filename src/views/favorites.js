@@ -5,9 +5,10 @@ var React = require('react');
 var favorites = React.createClass({
   render: function () {
     return (
-      <DocumentTitle title="My Favorites | Taro">
+      <div>
+        <DocumentTitle title="My Favorites | Taro" />
         <h2>My Favorites</h2>
-      </DocumentTitle>
+      </div>
     );
   }
 });
