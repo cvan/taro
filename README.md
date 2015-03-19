@@ -22,7 +22,7 @@ Generate a local settings file:
 
 From one terminal session, run the file watchers:
 
-	npm run watch
+    npm run watch
 
 Serve the site from the simple server:
 
@@ -42,14 +42,14 @@ If you wish to serve the site from a different port:
 * `jsx` compiles those files and puts them in `lib/`. These built files are used by the server.
 * Files in `lib/` are built for the client using `browserify` and put in `static/`.
 
-`static/` and `lib/` are checked in for ease of deployment.
+`static/` and `lib/` are not checked in. So be sure to run `npm run build` before running the server. (`npm start` takes care of this in production, and `npm run dev`/`npm run watch` take care of this in development.)
 
 
 ## Deployment
 
 In production, the server is run like so:
 
-    NODE_ENVIRONMENT=production node index
+    npm start
 
 Alternatively:
 
