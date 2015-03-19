@@ -10,6 +10,9 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 
+var utils = require('./utils');
+
+
 var App = React.createClass({
   render: function () {
     return (
@@ -29,6 +32,7 @@ var App = React.createClass({
   }
 });
 
+
 var Home = React.createClass({
   render: function () {
     return (
@@ -38,6 +42,7 @@ var Home = React.createClass({
     );
   }
 });
+
 
 var Apps = React.createClass({
   render: function () {
@@ -49,15 +54,52 @@ var Apps = React.createClass({
   }
 });
 
+
 var Add = React.createClass({
+  onSubmit: function (e) {
+    e.preventDefault();
+
+    var url = this.refs.url.getDOMNode().value;
+
+    utils.getJSON('https://fetch-manifest.herokuapp.com/manifest?url=' + url, function (err, data) {
+      if (err) {
+        data = null;
+        console.warn(err.message);
+      }
+
+      if (data.error) {
+        data = null;
+        console.warn('Manifest error (for %s): %s', url, data.error);
+      }
+
+      // TODO: Make sure there are no dupes.
+      utils.storagePush('apps', {
+        source_url: url,
+        manifest: data
+      });
+    });
+  },
   render: function () {
     return (
-      <DocumentTitle title="Add an App | Taro">
+      <div>
+        <DocumentTitle title="Add an App | Taro" />
         <h2>Add an App</h2>
-      </DocumentTitle>
+        <form onSubmit={this.onSubmit}>
+          <p>
+            <label>
+              URL
+              <input type="url" placeholder="http://" required ref="url" className="field field--large" />
+            </label>
+          </p>
+          <p>
+            <button type="submit">Submit</button>
+          </p>
+        </form>
+      </div>
     );
   }
 });
+
 
 var Favorites = React.createClass({
   render: function () {
@@ -68,6 +110,7 @@ var Favorites = React.createClass({
     );
   }
 });
+
 
 var NotFound = React.createClass({
   render: function () {
