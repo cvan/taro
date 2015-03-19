@@ -11,7 +11,11 @@ var getJSON = module.exports.getJSON = function getJSON(url, cb) {
       if (this.status === 200) {
         cb(null, this.response);
       } else {
-        cb(new Error('[getJSON] `' + url + '` failed with status "' + this.status + '"'));
+        var errorMsg = '[getJSON] `' + url + '` failed\nStatus:   ' + this.status;
+        if (this.response.message) {
+          errorMsg += '\nResponse: ' + this.response.message;
+        }
+        cb(new Error(errorMsg));
       }
     }
   };
@@ -57,4 +61,5 @@ var storagePush = module.exports.storagePush = function storagePush(key, value) 
   var data = storageGet(key, value) || [];
   data.push(value);
   storageSet(key, data);
+  return data;
 };
