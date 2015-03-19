@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+ul, ol {
+  list-style: none;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -13,16 +17,14 @@ body {
   background: #fff;
   color: #000;
   font-family: 'Fira Sans', sans-serif;
-  overflow: hidden;
-  height: 100%;
 }
 
 a:link, a:visited, a:active, a:hover {
   color: blue;
 }
 a.active {
-  text-decoration: none;
   color: #000;
+  text-decoration: none;
 }
 
 header {
@@ -65,4 +67,30 @@ button {
 
 p {
   margin: 1.5em 0;
+}
+
+h2 {
+  margin-bottom: .5em;
+}
+
+.app-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.app-title__icon {
+  display: block;
+  margin: 0 auto;
+  max-height: 128px;
+  max-width: 128px;
+}
+
+.app-title__link {
+  display: block;
+  min-width: 150px;
+  max-width: 150px;
+  max-height: 250px;
+  max-width: 250px;
+  padding: 15px;
 }

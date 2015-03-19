@@ -13,7 +13,6 @@ var app = React.createClass({
       <div className="app">
         <header>
           <h1>Taro</h1>
-          <Link to="home">Home</Link>
           <Link to="apps">Apps</Link>
           <Link to="add">Add an App</Link>
           <Link to="favorites">My Favorites</Link>
