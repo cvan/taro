@@ -82,16 +82,35 @@ h2 {
 .app-list {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin: -1em 0 0 -1em;
+}
+
+.scrollable--h {
+  height: 290px;
+  overflow: hidden;
+}
+
+.scrollable--h > * {
+  -moz-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  user-select: none;
+  padding-bottom: 60px;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .app-tile {
   display: flex;
   flex: 1;
-  min-width: 140px;
+  min-width: 250px;
   padding: 1em 0 0 1em;
   width: 300px;
+}
+
+.app-tile:last-child {
+  padding-right: 3px;
 }
 
 .app-tile__icon {

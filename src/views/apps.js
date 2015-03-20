@@ -57,11 +57,13 @@ var apps = React.createClass({
       <div>
         <DocumentTitle title="Apps | Taro" />
         <h2>Apps</h2>
-        <ol className="app-list">
-          {this.state.apps.map(function (data, idx) {
-            return <AppTile data={data} key={idx} tag="li" />;
-          })}
-        </ol>
+        <div className="scrollable--h">
+          <ol className="app-list">
+            {this.state.apps.map(function (data, idx) {
+              return <AppTile data={data} key={idx} tag="li" />;
+            })}
+          </ol>
+        </div>
       </div>
     );
   }
