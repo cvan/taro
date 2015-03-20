@@ -45,6 +45,10 @@ header h1 {
   margin-right: 1em;
 }
 
+.wordmark {
+  text-transform: uppercase;
+}
+
 .content {
   padding: 1em;
 }

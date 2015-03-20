@@ -12,7 +12,7 @@ var app = React.createClass({
     return (
       <div className="app">
         <header>
-          <h1>Taro</h1>
+          <h1 className="wordmark">Taro</h1>
           <Link to="apps">Apps</Link>
           <Link to="add">Add an App</Link>
           <Link to="favorites">My Favorites</Link>
