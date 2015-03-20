@@ -79,6 +79,14 @@ h2 {
   margin-bottom: .5em;
 }
 
+.app-list-outer {
+  bottom: 20px;
+  left: 20px;
+  padding: 3px;
+  position: absolute;
+  right: 20px;
+}
+
 .app-list {
   display: flex;
   flex-direction: row;

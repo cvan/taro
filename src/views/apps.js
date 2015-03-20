@@ -57,7 +57,7 @@ var apps = React.createClass({
       <div>
         <DocumentTitle title="Apps | Taro" />
         <h2>Apps</h2>
-        <div className="scrollable--h">
+        <div className="scrollable--h app-list-outer">
           <ol className="app-list">
             {this.state.apps.map(function (data, idx) {
               return <AppTile data={data} key={idx} tag="li" />;
