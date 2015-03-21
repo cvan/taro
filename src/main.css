@@ -75,7 +75,9 @@ button, input, textarea {
 }
 
 button {
-  padding: 15px 30px;
+  background: lightgreen;
+  border: 0;
+  padding: 10px 20px;
 }
 
 p {
@@ -132,7 +134,7 @@ h2 {
 .app-tile__icon {
   margin: 0 auto;
   max-height: 100%;
-  max-width: 100%;
+  max-width: 232px;
   flex-grow: 1;
 }
 
