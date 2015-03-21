@@ -14,23 +14,42 @@ var AppTile = React.createClass({
       return React.createElement(tag, {className: 'app-tile'}, '');
     }
 
-    var linkStyle = {};
+    var styles = {};
+
     if (manifest['theme-color']) {
-      linkStyle = {
+      styles.link = {
         backgroundColor: manifest['theme-color']
+      };
+    }
+
+    if (manifest['webvr_instructions_images'] &&
+        Array.isArray(manifest['webvr_instructions_images']) &&
+        manifest['webvr_instructions_images'][0]) {
+
+      styles.instructions = {
+        backgroundImage: 'url(' + manifest.webvr_instructions_images[0].src + ')'
       };
     }
 
     var innerHTML = (
       <a className="app-tile__link" href={manifest.start_url}
          target="_blank" title={manifest.name}
-         style={linkStyle} data-theme-color={manifest['theme-color']}>
+         style={styles.link} data-theme-color={manifest['theme-color']}>
 
         <div className="app-tile__name">{manifest.name}</div>
         <img className="app-tile__icon"
              src={manifest.icons[manifest.icons.length - 1].src}
              alt={manifest.name} title={manifest.name} />
-        <div className="app-tile__description">{manifest.description}</div>
+
+        <div className="app-tile__details">
+          <div className="app-tile__instructions" style={styles.instructions}>
+            <div className="wrap">
+              <h3 className="app-tile__heading">{manifest.name}</h3>
+              <div className="app-tile__tagline">{manifest.tagline}</div>
+              <div className="app-tile__description">{manifest.description}</div>
+            </div>
+          </div>
+        </div>
       </a>
     );
 
