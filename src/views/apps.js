@@ -1,8 +1,11 @@
 var DocumentTitle = require('react-document-title');
 var React = require('react');
-
+var Router = require('react-router');
 
 var utils = require('../utils');
+
+
+var Link = Router.Link;
 
 
 var AppTile = React.createClass({
@@ -31,10 +34,17 @@ var AppTile = React.createClass({
       };
     }
 
+    var routeParams = {
+      appSlug: this.props.data.slug || '<none>'
+    };
+
     var innerHTML = (
-      <a className="app-tile__link" href={manifest.start_url}
-         target="_blank" title={manifest.name}
-         style={styles.link} data-theme-color={manifest['theme-color']}>
+      <Link to="browser" params={routeParams} className="app-tile__link"
+         title={manifest.name} onClick={this.onClick}
+         style={styles.link}
+         data-theme-color={manifest['theme-color']}
+         data-app-name={routeParams.appSlug}
+         data-start-url={manifest.start_url}>
 
         <div className="app-tile__name">{manifest.name}</div>
         <img className="app-tile__icon"
@@ -50,7 +60,7 @@ var AppTile = React.createClass({
             </div>
           </div>
         </div>
-      </a>
+      </Link>
     );
 
     return React.createElement(tag, {className: 'app-tile'}, innerHTML);
@@ -66,8 +76,9 @@ var apps = React.createClass({
   },
   componentDidMount: function () {
     if (global.localStorage) {
+      var apps = utils.storageGet('apps') || [];
       this.setState({
-        apps: utils.storageGet('apps') || []
+        apps: apps
       });
     }
   },
