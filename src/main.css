@@ -37,6 +37,10 @@ header a.active {
   color: #fff;
 }
 
+header a.active {
+  font-weight: 700;
+}
+
 header {
   display: flex;
   align-items: center;
