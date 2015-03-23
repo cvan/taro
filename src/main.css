@@ -32,6 +32,7 @@ header a:hover {
   color: #def;
 }
 
+header a:hover,
 header a.active {
   color: #fff;
 }
