@@ -2,6 +2,7 @@
 
 A local browser using manifests as the data source.
 
+![screenshot of taro](https://cloud.githubusercontent.com/assets/203725/6762891/2d76540e-cf26-11e4-8a4b-bcd49e0ced1e.png "screenshot of taro")
 
 ## Installation
 
