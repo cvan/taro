@@ -12,22 +12,10 @@ var add = React.createClass({
     var urlField = this.refs.url.getDOMNode();
     var url = urlField.value;
 
-    utils.getJSON('https://fetch-manifest.herokuapp.com/manifest?url=' + url, function (err, data) {
+    utils.addApp(url, function (err, data) {
       if (err) {
-        data = null;
-        console.warn(err.message);
-      }
-
-      if (data) {
-        if (data.error) {
-          data = null;
-          console.warn('Manifest error (for %s): %s', url, data.error);
-        } else {
-          utils.storagePush('apps', {
-            source_url: url,
-            manifest: data
-          });
-        }
+        console.warn(err.message ? err.message : err);
+        return;
       }
 
       if (data) {
@@ -38,7 +26,7 @@ var add = React.createClass({
         urlField.blur();
 
         console.log(msg);
-        // alert(msg);
+        alert(msg);
       }
     }.bind(this));
   },

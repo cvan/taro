@@ -23,7 +23,11 @@ var getJSON = module.exports.getJSON = function getJSON(url, cb) {
 
 
 var storageGet = module.exports.storageGet = function storageGet(key, value) {
-  if (!('localStorage' in window)) {
+  if (!global.window) {
+    return;
+  }
+
+  if (!('localStorage' in global.window)) {
     return console.warn('Could not access localStorage');
   }
 
@@ -43,7 +47,11 @@ var storageGet = module.exports.storageGet = function storageGet(key, value) {
 
 
 var storageSet = module.exports.storageSet = function storageSet(key, value) {
-  if (!('localStorage' in window)) {
+  if (!global.window) {
+    return;
+  }
+
+  if (!('localStorage' in global.window)) {
     return console.warn('Could not access localStorage');
   }
 
@@ -62,4 +70,70 @@ var storagePush = module.exports.storagePush = function storagePush(key, value) 
   data.push(value);
   storageSet(key, data);
   return data;
+};
+
+
+var slugify = exports.slugify = function (txt) {
+  if (typeof txt !== 'string') {
+    return txt;
+  }
+
+  return (txt || '').toLowerCase()
+                    .replace(/ /g, '')
+                    .replace(/[^a-zA-Z0-9]+/g, '-');
+};
+
+
+var noop = exports.noop = function () {
+};
+
+
+var addApp = exports.addApp = function (url, cb) {
+  cb = cb || noop;
+
+  getJSON('https://fetch-manifest.herokuapp.com/manifest?url=' + url, function (err, data) {
+    if (err) {
+      data = null;
+      return cb(err.message);
+    }
+
+    if (data) {
+      if (data.error) {
+        data = null;
+        cb(new Error('Manifest error (for ' + url + '): ' + data.error), data);
+      } else {
+        var slug = slugify(data.short_name || data.name);
+        var app = {
+          slug: slug,
+          source_url: url,
+          manifest: data
+        };
+
+        var apps = storageGet('apps') || [];
+        var appReplaced = false;
+        apps.forEach(function (appObj, idx) {
+          if (appObj.source_url === app.source_url) {
+            apps[idx] = app;
+            appReplaced = true;
+          }
+        });
+
+        if (appReplaced) {
+          storageSet('apps', apps);
+          cb(null, apps);
+        } else {
+          storagePush('apps', app);
+          cb(null, app);
+        }
+      }
+    }
+  }.bind(this));
+};
+
+
+exports.refreshApps = function (cb) {
+  var apps = storageGet('apps', apps) || [];
+  apps.forEach(function (app) {
+    addApp(app.source_url, cb);
+  });
 };
