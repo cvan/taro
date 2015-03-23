@@ -38,7 +38,7 @@ var add = React.createClass({
         urlField.blur();
 
         console.log(msg);
-        alert(msg);
+        // alert(msg);
       }
     }.bind(this));
   },
@@ -51,7 +51,7 @@ var add = React.createClass({
           <p>
             <label>
               URL
-              <input type="url" name="url" ref="url" placeholder="http://" required autoFocus className="field field--large" />
+              <input type="url" name="url" ref="url" placeholder="http://" autoFocus className="field field--large" />
             </label>
           </p>
           <p>

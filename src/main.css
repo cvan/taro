@@ -14,34 +14,47 @@ html, body {
 }
 
 body {
-  background: #fff;
-  color: #000;
-  font-family: 'Fira Sans', sans-serif;
+  background: #26d0ce;
+  background: linear-gradient(90deg, #1a2980 10%, #26d0ce 90%);
+  color: #fff;
+  font-family: montserrat, sans-serif;
 }
 
-a:link, a:visited, a:active, a:hover {
-  color: blue;
-}
-a.active {
-  color: #000;
+a {
+  color: #fff;
   text-decoration: none;
+}
+
+header a:link,
+header a:visited,
+header a:active,
+header a:hover {
+  color: #def;
+}
+
+header a.active {
+  color: #fff;
 }
 
 header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 1em;
+  padding: 15px;
 }
 header a {
-  padding: 1em;
+  padding: 15px;
 }
 header h1 {
-  margin-right: 1em;
+  margin-right: 15px;
+}
+
+.wordmark {
+  text-transform: uppercase;
 }
 
 .content {
-  padding: 1em;
+  padding: 15px;
 }
 
 button, input, select, textarea {
@@ -62,7 +75,9 @@ button, input, textarea {
 }
 
 button {
-  padding: 1em 2em;
+  background: lightgreen;
+  border: 0;
+  padding: 10px 20px;
 }
 
 p {
@@ -70,27 +85,124 @@ p {
 }
 
 h2 {
+  display: none;
   margin-bottom: .5em;
+}
+
+.app-list-outer {
+  bottom: 20px;
+  left: 20px;
+  padding: 3px;
+  position: absolute;
+  right: 20px;
 }
 
 .app-list {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  margin: -1em 0 0 -1em;
 }
 
-.app-title__icon {
-  display: block;
+.scrollable--h {
+  height: 290px;
+  overflow: hidden;
+}
+
+.scrollable--h > * {
+  -moz-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  user-select: none;
+  padding-bottom: 60px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.app-tile {
+  display: flex;
+  flex: 1;
+  min-width: 250px;
+  padding: 1em 0 0 1em;
+  width: 300px;
+}
+
+.app-tile:last-child {
+  padding-right: 3px;
+}
+
+.app-tile__icon {
   margin: 0 auto;
-  max-height: 128px;
-  max-width: 128px;
+  max-height: 100%;
+  max-width: 232px;
+  flex-grow: 1;
 }
 
-.app-title__link {
-  display: block;
-  min-width: 150px;
-  max-width: 150px;
-  max-height: 250px;
-  max-width: 250px;
+.app-tile__link {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: .1s box-shadow ease-in-out;
+}
+
+.app-tile__link:hover {
+  box-shadow: 0 0 0 3px #fff;
+}
+
+.app-tile__name {
+  background: rgba(255,255,255,.5);
+  color: #333;
+  font-weight: 700;
   padding: 15px;
+  text-transform: uppercase;
+}
+
+.app-tile__details {
+  display: none;
+}
+
+.app-tile__link:hover .app-tile__details {
+  display: block;
+}
+
+.app-tile__details {
+  font-family: 'Fira Sans', sans-serif;
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.app-tile__instructions {
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  padding: 90px 15px 15px;
+}
+
+.app-tile__instructions .wrap {
+  width: 480px;
+}
+
+.app-tile__heading {
+  color: #fff;
+  font-weight: 200;
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+.app-tile__tagline {
+  color: #aaa;
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.app-tile__description {
+  font-size: 24px;
+  font-weight: 300;
 }
