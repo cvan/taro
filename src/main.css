@@ -182,9 +182,10 @@ h2 {
 }
 
 .app-tile__instructions {
+  background-position: 0 50%;
   background-repeat: no-repeat;
-  background-size: contain;
-  height: 100%;
+  background-size: cover;
+  height: calc(100% - 330px);
   padding: 90px 15px 15px;
 }
 
