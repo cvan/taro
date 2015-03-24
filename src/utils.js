@@ -91,6 +91,10 @@ var noop = exports.noop = function () {
 var addApp = exports.addApp = function (url, cb) {
   cb = cb || noop;
 
+  if (!global.window) {
+    return cb(new Error('window is missing!'));
+  }
+
   getJSON('https://fetch-manifest.herokuapp.com/manifest?url=' + url, function (err, data) {
     if (err) {
       data = null;
@@ -132,8 +136,48 @@ var addApp = exports.addApp = function (url, cb) {
 
 
 exports.refreshApps = function (cb) {
+  cb = cb || noop;
+
+  if (!global.window) {
+    return cb(new Error('window is missing!'));
+  }
+
   var apps = storageGet('apps', apps) || [];
+  var done = 0;
   apps.forEach(function (app) {
-    addApp(app.source_url, cb);
+    addApp(app.source_url, function () {
+      done++;
+      if (done === apps.length) {
+        cb(null);
+      }
+    });
+  });
+};
+
+
+exports.preloadApps = function (cb) {
+  cb = cb || noop;
+
+  if (!global.window) {
+    return cb(new Error('window is missing!'));
+  }
+
+  getJSON('/src/preloadedApps.json', function (err, urls) {
+    if (err) {
+      url = null;
+      return cb(err.message);
+    }
+
+    var done = 0;
+
+    urls.forEach(function (url) {
+      addApp(url, function () {
+        done++;
+        if (done === urls.length) {
+          cb(null);
+        }
+      });
+    });
+
   });
 };

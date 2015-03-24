@@ -1,15 +1,10 @@
 var React = require('react');
 var Router = require('react-router');
 
-var utils = require('../utils');
-
 
 var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
-
-
-utils.refreshApps();
 
 
 var app = React.createClass({
