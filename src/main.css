@@ -94,23 +94,7 @@ h2 {
   margin-bottom: .5em;
 }
 
-.app-list-outer {
-  bottom: 20px;
-  left: 20px;
-  padding: 3px;
-  position: absolute;
-  right: 20px;
-}
-
-.app-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  margin: -1em 0 0 -1em;
-}
-
 .scrollable--h {
-  height: 290px;
   overflow: hidden;
 }
 
@@ -124,22 +108,36 @@ h2 {
   overflow-y: hidden;
 }
 
+.app-list-outer {
+  bottom: 1rem;
+  height: 300px;
+  left: 1rem;
+  padding: .2rem 0;
+  position: absolute;
+  right: 1rem;
+}
+
+.app-list {
+  margin: -.8rem 0 0 -.8rem;
+  white-space: nowrap;
+}
+
 .app-tile {
-  display: flex;
-  flex: 1;
+  display: inline-block;
+  font-size: 0;
   min-width: 250px;
-  padding: 1em 0 0 1em;
-  width: 300px;
+  padding: 1rem 0 0 1rem;
+  white-space: normal;
 }
 
 .app-tile:last-child {
-  padding-right: 3px;
+  padding-right: .2rem;
 }
 
 .app-tile__icon {
   margin: 0 auto;
   max-height: 100%;
-  max-width: 232px;
+  max-width: 240px;
   flex-grow: 1;
 }
 
@@ -151,12 +149,13 @@ h2 {
 }
 
 .app-tile__link:hover {
-  box-shadow: 0 0 0 3px #fff;
+  box-shadow: 0 0 0 .2rem #fff;
 }
 
 .app-tile__name {
   background: rgba(255,255,255,.5);
   color: #333;
+  font-size: 16px;
   font-weight: 700;
   padding: 15px;
   text-transform: uppercase;
