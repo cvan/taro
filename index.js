@@ -29,7 +29,20 @@ server.connection({
 
 server.route({
   method: 'GET',
-  path: '/{path*}',
+  path: '/src/{path*}',
+  handler: {
+    directory: {
+      path: './src',
+      listing: false,
+      index: true
+    }
+  }
+});
+
+
+server.route({
+  method: 'GET',
+  path: '/static/{path*}',
   handler: {
     directory: {
       path: './static',

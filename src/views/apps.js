@@ -74,12 +74,28 @@ var apps = React.createClass({
       apps: []
     };
   },
+  setAppsState: function () {
+    this.setState({
+      apps: utils.storageGet('apps') || []
+    });
+  },
   componentDidMount: function () {
     if (global.localStorage) {
-      var apps = utils.storageGet('apps') || [];
-      this.setState({
-        apps: apps
-      });
+      var done = function () {
+        this.setAppsState();
+        this.render();
+      }.bind(this);
+
+      var imBack = utils.storageGet('imBack');
+
+      if (imBack) {
+        utils.refreshApps(done);
+      } else {
+        utils.preloadApps(done);
+        utils.storageSet('imBack', '1');
+      }
+
+      this.setAppsState();
     }
   },
   render: function () {

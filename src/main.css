@@ -122,6 +122,10 @@ h2 {
   white-space: nowrap;
 }
 
+.app-list:empty {
+  display: none;
+}
+
 .app-tile {
   display: inline-block;
   font-size: 0;
