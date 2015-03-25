@@ -14,7 +14,7 @@ var browser = React.createClass({
   },
   componentDidMount: function () {
     if (global.localStorage) {
-      var appSlug = this.context.router.getCurrentParams().appSlug;
+      var appSlug = this.context.getCurrentParams().appSlug;
 
       var apps = utils.storageGet('apps') || [];
       var app = {};
